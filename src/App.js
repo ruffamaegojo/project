@@ -1,24 +1,45 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { Container } from 'reactstrap';
+import ProductManagement from './components/ProductManagement';
+import CategoryManagement from './components/CategoryManagement';
+import TransactionManagement from './components/TransactionManagement';
+import StocksManagement from './components/StocksManagement';
+import TransactionReport from './components/TransactionReport';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [currentModule, setCurrentModule] = useState('products');
+
+  const renderModule = () => {
+    switch (currentModule) {
+      case 'products':
+        return <ProductManagement />;
+      case 'categories':
+        return <CategoryManagement />;
+      case 'transactions':
+        return <TransactionManagement />;
+      case 'stocks':
+        return <StocksManagement />;
+      case 'reports':
+        return <TransactionReport />;
+      default:
+        return null;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <nav>
+        <ul>
+          <li onClick={() => setCurrentModule('products')}>Products</li>
+          <li onClick={() => setCurrentModule('categories')}>Categories</li>
+          <li onClick={() => setCurrentModule('transactions')}>Transactions</li>
+          <li onClick={() => setCurrentModule('stocks')}>Stocks</li>
+          <li onClick={() => setCurrentModule('reports')}>Reports</li>
+        </ul>
+      </nav>
+      {renderModule()}
+    </Container>
   );
 }
 
